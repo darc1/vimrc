@@ -16,10 +16,25 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'burnettk/vim-angular'
+Plug 'moll/vim-node'
+Plug 'mileszs/ack.vim'
 call plug#end()
+
+" configure ack.vim to use ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" close ack window after choosing result
+let g:ack_autoclose = 1
+
+nnoremap <C-b> :Ack -Q <cword><CR>
 
 " ctrl+n to open nerd tree file explorer
 map <C-n> :NERDTreeToggle<CR>
+
+autocmd FileType nerdtree nmap <buffer> <CR> go
 
 " close vim if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -60,4 +75,6 @@ set showmatch
 let python_highlight_all = 1
 
 let g:ycm_python_binary_path = '/usr/bin/python3'
+
+let g:angular_skip_alternate_mappings = 1
 
