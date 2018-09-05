@@ -7,6 +7,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/groovy.vim'
+Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'nvie/vim-flake8'
 Plug 'scrooloose/syntastic'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
@@ -77,4 +79,8 @@ let python_highlight_all = 1
 let g:ycm_python_binary_path = '/usr/bin/python3'
 
 let g:angular_skip_alternate_mappings = 1
+
+:map <F7> :w !xclip -selection clipboard<CR><CR>
+:vmap <F7> "*y
+:map <S-F7> :r!xclip -o<CR>
 
