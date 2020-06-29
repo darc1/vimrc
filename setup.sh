@@ -53,7 +53,7 @@ cd vim/src
     --with-python3-config-dir=$PY3_CONFIG   \
     --enable-cscope                         \
     --prefix=/usr
-echo !!
+
 make
 sudo make install
 
