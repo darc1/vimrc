@@ -28,8 +28,8 @@ fi
 PY3_VER=3.8.3
 PY2_VER=2.7.18
 #configure python https://gist.github.com/klen/3d327e5f84e36dc04bd7
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -fk $PY3_VER
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -fk $PY2_VER
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -k $PY3_VER
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -k $PY2_VER
 
 PY_CONFIG=`pyenv prefix $PY2_VER/lib/python2.7/config`
 PY3_PREFIX=`pyenv prefix $PY3_VER`
