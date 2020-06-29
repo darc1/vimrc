@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# uninstall vim: sudo apt remove vim vim-runtime gvim
+#
+
 mkdir -p ~/tmp
 cd ~/tmp
 
@@ -49,5 +53,9 @@ cd vim/src
     --with-python3-config-dir=$PY3_CONFIG   \
     --enable-cscope                         \
     --prefix=/usr
+echo !!
+make
+sudo make install
 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
