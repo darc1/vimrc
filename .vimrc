@@ -1,3 +1,4 @@
+set nocompatible 
 set backspace=indent,eol,start
 
 if empty(glob('~/.vim/autoload/plug.vim'))
