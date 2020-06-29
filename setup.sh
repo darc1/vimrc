@@ -1,15 +1,20 @@
 #!/bin/bash
+mkdir -p ~/tmp
+cd ~/tmp
 
 #install pyenv
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-#update .bashrc
-echo export PATH="/home/ubuntu/.pyenv/bin:$PATH" >> ~/.bashrc
-echo eval "$(pyenv init -)" >> ~/.bashrc
-echo "eval \"$(pyenv virtualenv-init -)\"" >> ~/.bashrc
-#update locally
-export PATH="/home/ubuntu/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+
+if grep -Fxq "pyenv" .bashrc
+then
+    echo "pyenv already in bashrc"
+else
+    #update .bashrc
+    echo export PATH="/home/ubuntu/.pyenv/bin:\$PATH" >> ~/.bashrc
+    echo eval "\$(pyenv init -)" >> ~/.bashrc
+    echo "eval \"\$(pyenv virtualenv-init -)\"" >> ~/.bashrc
+    source ~/.bashrc
+fi
 
 PY3_VER=3.8.3
 PY2_VER=2.7.18
@@ -27,7 +32,9 @@ ln -s ../.pyenv/versions/$PY2_VER/lib/libpython2.7.so
 ln -s ../.pyenv/versions/$PY3_VER/lib/libpython3.8.so
 
 #download vim code
+cd tmp/
 git clone https://github.com/vim/vim.git
+cd vim/src
 ./configure                  \
     --with-features=huge                    \
     --enable-multibyte                      \
