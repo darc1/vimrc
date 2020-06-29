@@ -40,6 +40,8 @@ cd ~/lib
 ln -s ../.pyenv/versions/$PY2_VER/lib/libpython2.7.so
 ln -s ../.pyenv/versions/$PY3_VER/lib/libpython3.8.so
 
+pyenv global $PY3_VER $PY2_VER
+
 #download vim code
 cd ~/tmp/
 git clone https://github.com/vim/vim.git
