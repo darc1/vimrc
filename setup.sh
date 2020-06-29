@@ -14,7 +14,7 @@ libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
-if grep -Fxq "pyenv" .bashrc
+if grep -Fxq "pyenv" ~/.bashrc
 then
     echo "pyenv already in bashrc"
 else
