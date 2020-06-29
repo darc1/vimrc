@@ -20,7 +20,7 @@ then
 else
     #update .bashrc
     echo export PATH="/home/ubuntu/.pyenv/bin:\$PATH" >> ~/.bashrc
-    echo eval "\$(pyenv init -)" >> ~/.bashrc
+    echo "eval \"\$(pyenv init -)\"" >> ~/.bashrc
     echo "eval \"\$(pyenv virtualenv-init -)\"" >> ~/.bashrc
     source ~/.bashrc
 fi
