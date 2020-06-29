@@ -3,6 +3,11 @@ mkdir -p ~/tmp
 cd ~/tmp
 
 #install pyenv
+sudo apt-get update
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
 if grep -Fxq "pyenv" .bashrc
@@ -32,7 +37,7 @@ ln -s ../.pyenv/versions/$PY2_VER/lib/libpython2.7.so
 ln -s ../.pyenv/versions/$PY3_VER/lib/libpython3.8.so
 
 #download vim code
-cd tmp/
+cd ~/tmp/
 git clone https://github.com/vim/vim.git
 cd vim/src
 ./configure                  \
