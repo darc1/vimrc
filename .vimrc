@@ -15,6 +15,8 @@ Plug 'lambdalisue/suda.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'hashivim/vim-terraform'
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+Plug 'troydm/zoomwintab.vim'
 call plug#end()
 
 set exrc
@@ -25,8 +27,34 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 
-nnoremap <F5> :checktime<CR>
+" mappings for window navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
+"nnoremap <F5> :checktime<CR>
+nnoremap q: <nop>
+nnoremap Q <nop>
+
+autocmd FileType ts let b:coc_root_patterns = ['package-lock.json', 'node_modules/']
+autocmd FileType typescript let b:coc_root_patterns = ['package-lock.json', 'node_modules/']
+
+"set ttymouse=xterm2
+"set mouse=a
+
+" 
+" -------------------------------------------------------------------------------------------------
+" vimspector settings
+" -------------------------------------------------------------------------------------------------
+"
+" vim spector installed by downlading a release file into plugged dictionary.
+"set pythonthreedll=/home/ubuntu/.pyenv/versions/3.8.3/lib/libpython3.8.so.1.0
+let g:vimspector_enable_mappings='VISUAL_STUDIO'
+map <F4> :VimspectorReset<CR>
+nmap <F4> :VimspectorReset<CR>
+
+" 
 " -------------------------------------------------------------------------------------------------
 " vim-terraform settings
 " -------------------------------------------------------------------------------------------------
@@ -36,7 +64,7 @@ nnoremap <F5> :checktime<CR>
 let g:terraform_align=1
 
 "Allow vim-terraform to automatically fold (hide until unfolded) sections of terraform code. Defaults to 0 which is off.
-let g:terraform_fold_sections=1
+"let g:terraform_fold_sections=1
 
 "Allow vim-terraform to automatically format *.tf and *.tfvars files with terraform fmt. You can also do this manually with the :TerraformFmt command.
 let g:terraform_fmt_on_save=1
@@ -52,7 +80,7 @@ if executable('ag')
 endif
 
 map <C-f> :Files<CR>
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --skip-vcs-ignores --ignore .git -g ""'
 
 " Replace the default dictionary completion with fzf-based fuzzy completion
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
@@ -214,7 +242,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>fq  <Plug>(coc-fix-current)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
