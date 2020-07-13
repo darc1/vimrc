@@ -15,7 +15,7 @@ Plug 'lambdalisue/suda.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'hashivim/vim-terraform'
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+Plug 'puremourning/vimspector', {'branch': 'ui-custom', 'do': './install_gadget.py --enable-c --enable-python'}
 Plug 'troydm/zoomwintab.vim'
 call plug#end()
 
@@ -42,25 +42,11 @@ autocmd FileType typescript let b:coc_root_patterns = ['package-lock.json', 'nod
 
 "set encoding=utf-8
 "set fileencoding=utf-8
+" ttymouse=sgr for tmux screen-256color terminal
 set ttymouse=sgr
 set mouse=a
 
-" 
-" -------------------------------------------------------------------------------------------------
-" vimspector settings
-" -------------------------------------------------------------------------------------------------
-"
-" vim spector installed by downlading a release file into plugged dictionary.
-"set pythonthreedll=/home/ubuntu/.pyenv/versions/3.8.3/lib/libpython3.8.so.1.0
-"let g:vimspector_enable_mappings='HUMAN'
-let g:vimspector_enable_mappings='VISUAL_STUDIO'
-"map <F4> :VimspectorReset<CR>
-nmap <F3> :VimspectorReset<CR>
-nmap <F4> <Plug>VimspectorRestart
-nmap <C-F9> <Plug>VimspectorAddFunctionBreakpoint
-
-
-" 
+ 
 " -------------------------------------------------------------------------------------------------
 " vim-terraform settings
 " -------------------------------------------------------------------------------------------------
@@ -86,7 +72,8 @@ if executable('ag')
 endif
 
 map <C-f> :Files<CR>
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --skip-vcs-ignores --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+"let $FZF_DEFAULT_COMMAND = 'ag --hidden --skip-vcs-ignores --ignore .git -g ""'
 
 " Replace the default dictionary completion with fzf-based fuzzy completion
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
@@ -305,3 +292,20 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
+" 
+" -------------------------------------------------------------------------------------------------
+" vimspector settings
+" -------------------------------------------------------------------------------------------------
+"
+" vim spector installed by downlading a release file into plugged dictionary.
+"set pythonthreedll=/home/ubuntu/.pyenv/versions/3.8.3/lib/libpython3.8.so.1.0
+"let g:vimspector_enable_mappings='HUMAN'
+let g:vimspector_enable_mappings='VISUAL_STUDIO'
+nmap <F3> :VimspectorReset<CR>
+nmap <F4> <Plug>VimspectorRestart
+nmap <C-F9> <Plug>VimspectorAddFunctionBreakpoint
+
+execute 'source' g:plug_home. '/vimspector/support/custom_ui_vimrc'
+
