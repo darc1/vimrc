@@ -1,5 +1,6 @@
-set nocompatible 
+set nocompatible
 set backspace=indent,eol,start
+set exrc
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -15,17 +16,21 @@ Plug 'lambdalisue/suda.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'hashivim/vim-terraform'
-Plug 'puremourning/vimspector', {'branch': 'ui-custom', 'do': './install_gadget.py --enable-c --enable-python'}
+Plug 'puremourning/vimspector', {'branch': 'master'}
+"Plug 'puremourning/vimspector', {'branch': 'master', 'do': './install_gadget.py --enable-c --enable-python'}
 Plug 'troydm/zoomwintab.vim'
+Plug 'nvie/vim-togglemouse'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
+
 
 set exrc
 set secure
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set noexpandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 
 " mappings for window navigation
 nnoremap <C-J> <C-W><C-J>
@@ -33,9 +38,14 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+nnoremap <space>, :nohlsearch<CR>
+nnoremap  <C-W> :W<CR>
+
 "nnoremap <F5> :checktime<CR>
 nnoremap q: <nop>
+nnoremap q/ <nop>
 nnoremap Q <nop>
+
 
 autocmd FileType ts let b:coc_root_patterns = ['package-lock.json', 'node_modules/']
 autocmd FileType typescript let b:coc_root_patterns = ['package-lock.json', 'node_modules/']
@@ -43,13 +53,13 @@ autocmd FileType typescript let b:coc_root_patterns = ['package-lock.json', 'nod
 "set encoding=utf-8
 "set fileencoding=utf-8
 " ttymouse=sgr for tmux screen-256color terminal
-set ttymouse=sgr
+"set ttymouse=sgr
 set mouse=a
 
- 
+
 " -------------------------------------------------------------------------------------------------
 " vim-terraform settings
-" -------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------
 "
 
 "Allow vim-terraform to align settings automatically with Tabularize.
@@ -79,6 +89,7 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 set laststatus=2
 set statusline+=%F
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
 " -------------------------------------------------------------------------------------------------
 " onehalf-vim settings
@@ -86,9 +97,10 @@ set statusline+=%F
 "
 
 set cursorline
-"colorscheme onehalflight
 colorscheme onehalfdark
 let g:airline_theme='onehalfdark'
+"colorscheme onehalflight
+"let g:airline_theme='onehalflight'
 " lightline
 " let g:lightline.colorscheme='onehalfdark'
 "
@@ -99,6 +111,8 @@ let g:airline_theme='onehalfdark'
 "
 
 map <C-e> :NERDTreeToggle<CR>
+map <C-S-e> :NERDTreeFind<cr>
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " -------------------------------------------------------------------------------------------------
@@ -153,7 +167,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=100
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -183,6 +197,7 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <NUL> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -273,7 +288,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -294,7 +309,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
-" 
+"
 " -------------------------------------------------------------------------------------------------
 " vimspector settings
 " -------------------------------------------------------------------------------------------------
@@ -303,9 +318,33 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "set pythonthreedll=/home/ubuntu/.pyenv/versions/3.8.3/lib/libpython3.8.so.1.0
 "let g:vimspector_enable_mappings='HUMAN'
 let g:vimspector_enable_mappings='VISUAL_STUDIO'
-nmap <F3> :VimspectorReset<CR>
-nmap <F4> <Plug>VimspectorRestart
-nmap <C-F9> <Plug>VimspectorAddFunctionBreakpoint
+nmap <leader>dq :VimspectorReset<CR>
 
-execute 'source' g:plug_home. '/vimspector/support/custom_ui_vimrc'
+"execute 'source' g:plug_home. '/vimspector/support/custom_ui_vimrc'-
+" mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
 
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval"
+
+nmap <LocalLeader><F11> <Plug>VimspectorUpFrame
+nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
+
+"
+" -------------------------------------------------------------------------------------------------
+" coc-prettier settings
+" -------------------------------------------------------------------------------------------------
+"
+"
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+"
+" -------------------------------------------------------------------------------------------------
+" coc-prettier settings
+" -------------------------------------------------------------------------------------------------
+"
+"
+command! -nargs=0 EslintAutofix :CocCommand eslint.executeAutofix
+
+nnoremap fa :Prettier<CR> <bar> :EslintAutofix<CR><CR>
