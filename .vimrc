@@ -95,7 +95,11 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 " onehalf-vim settings
 " -------------------------------------------------------------------------------------------------
 "
-
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 set cursorline
 colorscheme onehalfdark
 let g:airline_theme='onehalfdark'
@@ -104,6 +108,9 @@ let g:airline_theme='onehalfdark'
 " lightline
 " let g:lightline.colorscheme='onehalfdark'
 "
+" TMUX
+" set -g default-terminal "tmux-256color"
+" set -ga terminal-overrides ",*256col*:Tc"
 
 " -------------------------------------------------------------------------------------------------
 " nerdtree settings
@@ -112,6 +119,7 @@ let g:airline_theme='onehalfdark'
 
 map <C-e> :NERDTreeToggle<CR>
 map <C-S-e> :NERDTreeFind<cr>
+map <leader>r :NERDTreeFind<cr>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
